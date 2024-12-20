@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    *::before,
+    *,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      font-family: 'Inter';
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      position: relative;
+      height: 400px;
+      width: 300px;
+      border: 1px solid;
+      color: green;
+      cursor: pointer;
+      transition: transform 2s;
+      backface-visibility: hidden;
+    }
+
+    .card > .front {
+      background-color: #ddd;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+    }
+
+    .front > span {
+      font-size: 10px;
+      color: red;
+    }
+
+    .card > .back {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: rotateY(180deg);
+    }
+
+    img {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
+
+    .back > p {
+      background-color: color-mix(in srgb, white, transparent 80%);
+      width: 100%;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+      text-align: center;
+      position: absolute;
+      left: 0;
+      bottom: 40%;
+      font-style: italic;
+    }
+
+    .card-zoom {
+      transition: transform 2s;
+      transform: scale3d(1.2, 1.2, 0.5);
+    }
+
+    .active {
+      transform: perspective(500px) rotateY(180deg);
+    }
+  </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D flip</title>
+  </head>
+  <body>
+    <div class="card">
+      <div class="front">
+        <p>What's on the menu?</p>
+        <span>click to check</span>
+      </div>
+
+      <div class="back">
+        <img src="img.jpg" />
+        <p>bon appetite!</p>
+      </div>
+    </div>
+  </body>
+  <script>
+    const card = document.querySelector('.card');
+
+    card.addEventListener('click', () => {
+      card.classList.add('active');
+    });
+
+    card.addEventListener('mouseenter', () => {
+      card.classList.add('card-zoom');
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.classList.remove('card-zoom');
+      card.classList.remove('active');
+    });
+  </script>
+</html>
